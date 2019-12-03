@@ -15,7 +15,7 @@ func main() {
   }
 
   scanner := bufio.NewScanner(file)
-  scanner.split(bufio.ScanLines)
+  scanner.Split(bufio.ScanLines)
   var numbers []int
 
   for scanner.Scan() {
@@ -31,10 +31,10 @@ func main() {
   fmt.Printf("%d\n", calculateFuel(numbers))
 }
 
-func calculateFuel([]int numbers) int {
-  var fuel
+func calculateFuel(numbers []int) int {
+  var fuel int
   for _, number := range numbers {
-    fuel = fuel + (number / 3 - 2)
+    fuel = (fuel + (number / 3 - 2))
   }
   return fuel
 }
