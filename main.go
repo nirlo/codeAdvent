@@ -16,25 +16,35 @@ func main() {
 
   scanner := bufio.NewScanner(file)
   scanner.Split(bufio.ScanLines)
-  var numbers []int
+  var modules []int
 
   for scanner.Scan() {
     num, err := strconv.Atoi(scanner.Text())
     if err != nil {
       panic(err) // at the disco
     }
-    numbers = append(numbers, num)
+    modules = append(modules, num)
   }
 
   file.Close()
 
-  fmt.Printf("%d\n", calculateFuel(numbers))
+  fmt.Printf("%d\n", calculateFuel(modules))
 }
 
-func calculateFuel(numbers []int) int {
-  var fuel int
-  for _, number := range numbers {
-    fuel = (fuel + (number / 3 - 2))
+// 
+func calculateFuel(modules []int) int {
+  var total int
+  for _, number := range modules {
+    fuel := calcFuel(number)
+    for (fuel >= 0) {
+      total += fuel
+      fuel = calcFuel(fuel)
+    }
   }
-  return fuel
+  return total
 }
+
+func calcFuel(f int) int {
+  return (f/3)-2
+}
+
